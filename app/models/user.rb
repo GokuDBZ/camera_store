@@ -2,8 +2,8 @@ class User < ApplicationRecord
   before_save :generate_token
   after_save :create_cart
   
-  has_one :cart
-  has_many :cart_items
+  has_one :cart, dependent: :destroy
+  has_many :cart_items, dependent: :destroy
 
   has_secure_password
   
@@ -14,7 +14,8 @@ class User < ApplicationRecord
   end
 
   def reset_token
-    generate_token
+    self.token = SecureRandom.urlsafe_base64
+    self.save
   end
 
   def create_cart

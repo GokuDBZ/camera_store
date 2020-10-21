@@ -4,12 +4,13 @@ module Api
 			include ActionController::HttpAuthentication::Token::ControllerMethods
 			before_action :authenticate
 			
+
 			def add_product
 				result = Cart.add_product(current_user.id, params[:product_id], params[:quantity])
 				if result[:error].present?
           render json: {error: result[:error]}
 				else
-          render json: {email: curren_user.email, message: "Item added to Cart"}
+          render json: {cart_items: current_user.cart.cart_items }
 				end
 			end
 			

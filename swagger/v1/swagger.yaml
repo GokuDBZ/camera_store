@@ -1,0 +1,221 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+components:
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer
+paths:
+  "/api/v1/users/signup":
+    post:
+      summary: Sign Up a User
+      tags:
+      - Sign Up
+      parameters: []
+      responses:
+        '200':
+          description: user created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                  access_token:
+                    type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
+  "/api/v1/users/login":
+    post:
+      summary: LogIn a User
+      tags:
+      - Log In
+      parameters: []
+      responses:
+        '200':
+          description: user login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                  access_token:
+                    type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
+  "/api/v1/users/{id}/cart":
+    get:
+      summary: Get cart of specific user
+      tags:
+      - Get cart of specific user
+      parameters:
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      security:
+      - bearer_auth: []
+      responses:
+        '200':
+          description: user cart
+          examples:
+            application/json:
+              id: 1
+              title: hello
+          content: {}
+  "/api/v1/categories":
+    get:
+      summary: List down all categories
+      tags:
+      - Categories
+      security:
+      - bearer_auth: []
+      responses:
+        '200':
+          description: categories listed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    category_id:
+                      type: integer
+                    description:
+                      type: string
+                    price:
+                      type: string
+                    model:
+                      type: int
+  "/api/v1/categories/{categoryId}/products":
+    get:
+      summary: List down all products in a category
+      tags:
+      - List down all products in a category
+      parameters:
+      - name: categoryId
+        in: path
+        schema:
+          type: integer
+        required: true
+      security:
+      - bearer_auth: []
+      responses:
+        '200':
+          description: categories listed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    category_id:
+                      type: integer
+                    description:
+                      type: string
+                    price:
+                      type: string
+                    model:
+                      type: int
+  "/api/v1/products":
+    get:
+      summary: List down all products
+      tags:
+      - products
+      security:
+      - bearer_auth: []
+      responses:
+        '200':
+          description: Products listed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    category_id:
+                      type: integer
+                    description:
+                      type: string
+                    price:
+                      type: string
+                    make:
+                      type: int
+  "/api/v1/carts/add_product":
+    post:
+      summary: Add Product to userCart
+      tags:
+      - Add Product to user cart
+      parameters: []
+      security:
+      - bearer_auth: []
+      responses:
+        '200':
+          description: Product Added
+          examples:
+            application/json:
+              id: 1
+              title: hello
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product_id:
+                  type: integer
+                quantity:
+                  type: integer
+              required:
+              - product_id
+              - quantity
+servers:
+- url: ''
+  variables:
+    defaultHost:
+      default: localhost

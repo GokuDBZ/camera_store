@@ -5,12 +5,15 @@ module Api
 			before_action :authenticate
 			
 			def index(categories = Category.all)
+				byebug
 				render json: categories
 			end
 
 			def products
+				byebug
 				category = Category.find(params[:category_id])
 				products = category.products
+				render json: products
 			end
 
 			private

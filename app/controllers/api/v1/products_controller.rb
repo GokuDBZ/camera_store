@@ -4,8 +4,8 @@ module Api
 			include ActionController::HttpAuthentication::Token::ControllerMethods
 			before_action :authenticate
 			
-			def index
-				render json: {message: "API development is in progress"}
+			def index(products = Product.all)
+				render json: products
 			end
 
 			private
