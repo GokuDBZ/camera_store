@@ -17,7 +17,6 @@ module Api
 			end
 		
 			def signup
-				byebug
 				data = required_params
 				user = User.new(data)
 				result = user.save
