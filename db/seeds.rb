@@ -36,21 +36,20 @@ end
 
 
 
-# data.keys.each do |key|
-#     byebug
-#     cat = Category.new
-#     cat.name = key
-#     cat.category_type = data[key][:type]
-#     cat.model = data[key][:model]
-#     cat.save
+data.keys.each do |key|
+    cat = Category.new
+    cat.name = key
+    cat.category_type = data[key][:type]
+    cat.model = data[key][:model]
+    cat.save
 
-#     data[key][:products].each do |product|
-#         prod = Product.new
-#         prod.name = product[:name]
-#         prod.description = product[:description]
-#         prod.price = product[:price]
-#         prod.make = product[:make]
-#         prod.category_id = cat.id
-#         prod.save
-#     end
-# end
+    data[key][:products].each do |product|
+        prod = Product.new
+        prod.name = product[:name]
+        prod.description = product[:description]
+        prod.price = product[:price]
+        prod.make = product[:make]
+        prod.category_id = cat.id
+        prod.save
+    end
+end
