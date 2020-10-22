@@ -5,7 +5,6 @@ module Api
 			before_action :authenticate
 			
 			def index(categories = Category.all)
-				byebug
 				render json: categories
 			end
 
